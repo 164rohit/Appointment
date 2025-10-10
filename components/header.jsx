@@ -109,7 +109,7 @@ const Header =async () => {
                 items-center gap-2'
                 >
                   <CreditCard className='h-3.5 w-3.5 text-emerald-400'/>
-                  <span>
+                  {/* <span>
                     {user && user?.role === "PATIENT"? (
                       <>
                       {user.credits}{" "}
@@ -118,7 +118,7 @@ const Header =async () => {
                     ):(
                       <>Pricing</>
                     )}
-                  </span>
+                  </span> */}
 
                 </Badge>
               </Link>
