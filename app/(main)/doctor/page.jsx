@@ -3,7 +3,6 @@ import { getCurrentUser } from '@/actions/onboarding';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Calendar, Clock, DollarSign } from 'lucide-react';
 import React from 'react'
-import { get } from 'react-hook-form';
 import { AvailabilitySettings } from './_components/availibility-settings';
 
 const DoctorDashboard =async () => {
