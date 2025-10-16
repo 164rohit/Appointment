@@ -198,10 +198,10 @@ export async function cancelAppointment(formData) {
       },
       include: {
         patient: true,
-        doctor: true,
+        doctor: true,     
       },
     });
-
+  
     if (!appointment) {
       throw new Error("Appointment not found");
     }
@@ -225,6 +225,7 @@ export async function cancelAppointment(formData) {
 
       // Always refund credits to patient and deduct from doctor
       // Create credit transaction for patient (refund)
+    
       await tx.creditTransaction.create({
         data: {
           userId: appointment.patientId,

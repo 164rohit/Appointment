@@ -149,6 +149,7 @@ export async function deductCreditsForAppointment(userId, doctorId) {
           userId: user.id,
           amount: -APPOINTMENT_CREDIT_COST,
           type: "APPOINTMENT_DEDUCTION",
+          
         },
       });
 

@@ -4,6 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Calendar, Clock, DollarSign } from 'lucide-react';
 import React from 'react'
 import { AvailabilitySettings } from './_components/availibility-settings';
+import DoctorAppointmentsList from './_components/appointment-list';
+import { redirect } from 'next/dist/server/api-utils';
 
 const DoctorDashboard =async () => {
     const user = await getCurrentUser();
@@ -51,9 +53,9 @@ const DoctorDashboard =async () => {
       </TabsList>
       <div className="md:col-span-3">
         <TabsContent value="appointments" className="border-none p-0">
-          {/* <DoctorAppointmentsList
+          <DoctorAppointmentsList
             appointments={appointmentsData.appointments || []}
-          /> */}
+          />
         </TabsContent>
         <TabsContent value="availability" className="border-none p-0">
           <AvailabilitySettings slots={availabilityData.slots || []} />
@@ -69,4 +71,4 @@ const DoctorDashboard =async () => {
   );
 }
 
-export default DoctorDashboard
+export default DoctorDashboard;
