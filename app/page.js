@@ -52,7 +52,7 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-      <div className="relative h-[400px] lg:h-[600px] rounded-xl overflow-hidden">
+      <div className="relative h-[400px] lg:h-[600px] rounded-xl overflow-hidden ">
               <Image
                 src="/banner2.png"
                 alt="Doctor consultation"
