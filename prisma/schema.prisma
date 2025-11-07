@@ -1,6 +1,5 @@
-
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -23,14 +22,14 @@ model User {
   
   // Patient-specific fields
   credits           Int       @default(2) // Accumulated credit balance
-  
+
   // Doctor-specific fields
   specialty         String?
   experience        Int?      // Years of experience
   credentialUrl     String?   // Document URL
   description       String?   @db.Text
   verificationStatus VerificationStatus?  @default(PENDING)
-  
+
   // Relations
   patientAppointments Appointment[] @relation("PatientAppointments")
   doctorAppointments  Appointment[] @relation("DoctorAppointments")
@@ -80,7 +79,11 @@ model Appointment {
   status            AppointmentStatus @default(SCHEDULED)
   notes             String?  @db.Text
   patientDescription String? @db.Text
-    
+
+  // 🩵 Feedback fields (added for patient feedback per appointment)
+  patientFeedback   String?   @db.Text
+  feedbackDate      DateTime? // Optional: when feedback was given
+
   // Video session fields
   videoSessionId    String?  // Vonage Video API Session ID
   videoSessionToken String?  // Optional: Can store tokens if needed
@@ -137,4 +140,3 @@ enum PayoutStatus {
   PROCESSING
   PROCESSED
 }
-

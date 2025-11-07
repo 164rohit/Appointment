@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -12,7 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Check, X, User, Medal, FileText, ExternalLink } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Dialog, DialogContent, DialogDescription,DialogFooter, DialogHeader,DialogTitle,
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
@@ -222,8 +227,8 @@ export function PendingDoctors({ doctors }) {
                     Service Description
                   </h3>
                 </div>
-                <p className="text-muted-foreground whitespace-pre-line">
-                  {selectedDoctor.description}
+                <p className="text-muted-foreground whitespace-pre-line break-words break-all max-h-60 overflow-y-auto">
+                      {selectedDoctor.description || "No description provided."}
                 </p>
               </div>
             </div>

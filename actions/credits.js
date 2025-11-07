@@ -105,9 +105,9 @@ export async function checkAndAllocateCredits(user) {
       return updatedUser;
     });
 
-    // Revalidate relevant paths to reflect updated credit balance
-    revalidatePath("/doctors");
-    revalidatePath("/appointments");
+    // // Revalidate relevant paths to reflect updated credit balance
+    // revalidatePath("/doctors");
+    // revalidatePath("/appointments");
 
     return updatedUser;
   } catch (error) {

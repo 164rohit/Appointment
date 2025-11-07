@@ -8,6 +8,7 @@ import { Vonage } from "@vonage/server-sdk";
 import { addDays, addMinutes, format, isBefore, endOfDay } from "date-fns";
 import { Auth } from "@vonage/auth";
 
+
 // Initialize Vonage Video API client
 const credentials = new Auth({
   applicationId: process.env.NEXT_PUBLIC_VONAGE_APPLICATION_ID,
@@ -15,6 +16,8 @@ const credentials = new Auth({
 });
 const options = {};
 const vonage = new Vonage(credentials, options);
+
+
 
 /**
  * Book a new appointment with a doctor
@@ -405,5 +408,47 @@ export async function getAvailableTimeSlots(doctorId) {
   } catch (error) {
     console.error("Failed to fetch available slots:", error);
     throw new Error("Failed to fetch available time slots: " + error.message);
+  }
+}
+
+export async function savePatientFeedback(formData) {
+  try {
+    const appointmentId = formData.get("appointmentId");
+    const feedback = formData.get("feedback");
+
+    console.log("📘 Feedback Save Request:", { appointmentId, feedback });
+
+    if (!appointmentId) {
+      return { success: false, message: "Appointment ID is missing" };
+    }
+
+    // Check if appointment exists
+    const existingAppointment = await db.appointment.findUnique({
+      where: { id: appointmentId },
+    });
+
+    if (!existingAppointment) {
+      console.warn("⚠️ Appointment not found in database:", appointmentId);
+      return { success: false, message: "Appointment not found" };
+    }
+
+    // 🩵 Update the Appointment with feedback
+    const updated = await db.appointment.update({
+      where: { id: appointmentId },
+      data: {
+        patientFeedback: feedback || "",
+        feedbackDate: new Date(),
+      },
+    });
+
+    // Optional revalidation to refresh UI pages
+    revalidatePath("/dashboard/appointments");
+
+    console.log("✅ Feedback saved successfully for appointment:", appointmentId);
+
+    return { success: true, message: "Feedback saved successfully" };
+  } catch (error) {
+    console.error("❌ Error saving patient feedback:", error);
+    return { success: false, message: "Failed to save feedback" };
   }
 }

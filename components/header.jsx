@@ -24,13 +24,25 @@ export default async function Header() {
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-10 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 cursor-pointer">
-          <Image
-            src="/logo-single.png"
-            alt="Medimeet Logo"
-            width={200}
-            height={60}
-            className="h-10 w-auto object-contain"
-          />
+          {/* Small logo (mobile/tablet) */}
+<Image
+  src="/logo-single.png"
+  alt="Appointment Small Logo"
+  width={200}
+  height={50}
+  className="h-24 w-auto object-contain block lg:hidden"
+/>
+
+{/* Large logo (desktop) */}
+<Image
+  src="/logo.png"
+  alt="Appointment Large Logo"
+  width={500}
+  height={160}
+className="h-40 w-auto object-contain hidden lg:block"
+/>
+
+
         </Link>
 
         {/* Action Buttons */}

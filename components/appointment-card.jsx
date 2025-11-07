@@ -13,8 +13,13 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Textarea } from './ui/textarea';
+import FeedbackDialog from './feedback';
+import PatientFeedbackDialog from './feedback';
 
 const AppointmentCard  = ({appointment, userRole, refetchAppointments}) => {
+
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
+
     
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState(null); // 'cancel', 'notes', 'video', or 'complete'
@@ -500,6 +505,34 @@ const AppointmentCard  = ({appointment, userRole, refetchAppointments}) => {
                 </div>
               )}
             </div>
+          
+       {/* Feedback Button (Patient Only, when appointment is completed) */}
+{userRole === "PATIENT" && appointment.status === "COMPLETED" && (
+  <div className="flex justify-end mt-4">
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setFeedbackDialogOpen(true)}
+      className="border-emerald-900/30 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/20"
+    >
+      <Edit className="h-3.5 w-3.5 mr-1" />
+      {appointment.patientFeedback ? "Edit Feedback" : "Give Feedback"}
+    </Button>
+  </div>
+)}
+
+           {/* Feedback Dialog */}
+            {userRole === "PATIENT" && appointment.status === "COMPLETED" && (
+             <PatientFeedbackDialog
+             appointmentId={appointment.id}          
+             open={feedbackDialogOpen}               
+             onClose={() => setFeedbackDialogOpen(false)} 
+             onFeedbackSaved={refetchAppointments}  
+            />
+            )}
+
+
+
           </div>
 
           <DialogFooter className="flex flex-col-reverse sm:flex-row sm:justify-between sm:space-x-2">
